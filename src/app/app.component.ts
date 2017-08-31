@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { BackService } from './provider/back.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
+  title = 'Profesores';
+  profesores: any[] = [];
+
+  constructor(private backservice: BackService){}
+
+
+  ngOnInit()
+  {
+    this.backservice.getUsers().then(prof => this.profesores = prof);
+  }
+
 }
