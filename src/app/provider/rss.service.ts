@@ -26,4 +26,22 @@ export class RssService {
       .toPromise();
   }
 
+  getRssWiredXQFilter(title:any, description:any, category:any) {
+    return this.http.get('http://localhost:8888/RSS_WIRED_XQ/'+title+"/"+description+"/"+category)
+      .map(res => res.json().rss.channel.item)
+      .toPromise();
+  }
+
+  getRssLfXQFilter(title:any, description:any, category:any) {
+    return this.http.get('http://localhost:8888/RSS_LIFEH_XQ'+title+"/"+description+"/"+category)
+      .map(res => res.json().rss.channel.item)
+      .toPromise();
+  }
+
+  getRssBbcXQFilter(title:any, description:any, category:any) {
+    return this.http.get('http://localhost:8888/RSS_BBC_XQ'+title+"/"+description+"/"+category)
+      .map(res => res.json().rss.channel.item)
+      .toPromise();
+  }
+
 }

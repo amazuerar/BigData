@@ -5,6 +5,8 @@ import { RssService} from './provider/rss.service';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { RegexTitlePipe } from './pipe/regex-title.pipe';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   declarations: [
@@ -13,9 +15,10 @@ import { RegexTitlePipe } from './pipe/regex-title.pipe';
   ],
   imports: [
     BrowserModule,
-    HttpModule
+    HttpModule,
+    FormsModule      
   ],
-  providers: [BackService, RssService],
+  providers: [BackService, RssService, RegexTitlePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

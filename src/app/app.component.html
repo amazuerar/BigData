@@ -21,26 +21,24 @@
 <div class="container-fluid">
 
 
-  <form>
     <div class="form-row">
       <div class="form-group col-md-3">
-        <label for="inputEmail4" class="col-form-label">Titulo</label>
-        <input type="email" class="form-control" placeholder="Titulo">
+        <label class="col-form-label">Titulo</label>
+        <input type="text" class="form-control" placeholder="Titulo" [(ngModel)]="title">
       </div>
       <div class="form-group col-md-3">
-        <label for="inputPassword4" class="col-form-label">Contenido</label>
-        <input type="password" class="form-control" placeholder="Contenido">
+        <label class="col-form-label">Contenido</label>
+        <input type="text" class="form-control" placeholder="Contenido" [(ngModel)]="description">
       </div>
       <div class="form-group col-md-3">
-        <label for="inputPassword4" class="col-form-label">Categoria (Separe las categorias por comas)</label>
-        <input type="password" class="form-control" placeholder="Categoria">
+        <label class="col-form-label">Categoria</label>
+        <input type="text" class="form-control" placeholder="Categoria" [(ngModel)]="category">
       </div>
       <div class="form-group col-md-3">
-        <label class="col-form-label">Filtrado</label>
-        <button type="submit" class="form-control btn btn-primary">Filtrar</button>
+        <button (click)="clean()" class="form-control btn btn-primary" style="margin-bottom: 1px;">Limpiar</button>
+        <button (click)="filter()" class="form-control btn btn-primary">Filtrar</button>
       </div>
     </div>
-  </form>
 
 
 
@@ -125,7 +123,8 @@
           </div>
 
           <div id="collapseOneRegex" class="collapse show" role="tabpanel" aria-labelledby="headingOneRegex" data-parent="#accordionRegex">
-            <div *ngFor="let rss of rssWired | regexTitle:'title':'' | regexTitle:'description':'the veteran astronaut' " class="card-body">
+            <!--<div *ngFor="let rss of rssWiredRegex | regexTitle:'title':'' | regexTitle:'description':'the veteran astronaut' " class="card-body">-->
+              <div *ngFor="let rss of rssWiredRegex" class="card-body">
               <span><b>{{rss.title}}</b></span>
             </div>
           </div>
@@ -140,7 +139,7 @@
             </h5>
           </div>
           <div id="collapseTwoRegex" class="collapse" role="tabpanel" aria-labelledby="headingTwoRegex" data-parent="#accordionRegex">
-            <div *ngFor="let rss of rssLifeH | regexTitle:'title':'' | regexTitle:'description':'the veteran astronaut' " class="card-body">
+            <div *ngFor="let rss of rssLifeHRegex" class="card-body">
               <span><b>{{rss.title}}</b></span>
             </div>
           </div>
@@ -155,7 +154,7 @@
             </h5>
           </div>
           <div id="collapseThreeRegex" class="collapse" role="tabpanel" aria-labelledby="headingThreeRegex" data-parent="#accordionRegex">
-            <div *ngFor="let rss of rssBbc | regexTitle:'title':'' | regexTitle:'description':'the veteran astronaut' " class="card-body">
+            <div *ngFor="let rss of rssBbcRegex" class="card-body">
               <span><b>{{rss.title}}</b></span>
             </div>
           </div>
@@ -184,7 +183,7 @@
           </div>
 
           <div id="collapseOneXQuery" class="collapse show" role="tabpanel" aria-labelledby="headingOneXQuery" data-parent="#accordionXQuery">
-            <div *ngFor="let rss of rssWired" class="card-body">
+            <div *ngFor="let rss of rssWiredXQ" class="card-body">
               <span><b>{{rss.title}}</b></span><br/>
               <span><b>{{rss.pubDate}}</b></span><br/>
               <a [attr.href]="rss.link">Ver mas...</a>
@@ -201,7 +200,7 @@
             </h5>
           </div>
           <div id="collapseTwoXQuery" class="collapse" role="tabpanel" aria-labelledby="headingTwoXQuery" data-parent="#accordionXQuery">
-            <div *ngFor="let rss of rssLifeH" class="card-body">
+            <div *ngFor="let rss of rssLifeHXQ" class="card-body">
               <span><b>{{rss.title}}</b></span><br/>
               <span><b>{{rss.pubDate}}</b></span><br/>
               <a [attr.href]="rss.link">Ver mas...</a>
@@ -218,7 +217,7 @@
             </h5>
           </div>
           <div id="collapseThreeXQuery" class="collapse" role="tabpanel" aria-labelledby="headingThreeXQuery" data-parent="#accordionXQuery">
-            <div *ngFor="let rss of rssBbc" class="card-body">
+            <div *ngFor="let rss of rssBbcXQ" class="card-body">
               <span><b>{{rss.title}}</b></span><br/>
               <span><b>{{rss.pubDate}}</b></span><br/>
               <a [attr.href]="rss.link">Ver mas...</a>

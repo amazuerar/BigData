@@ -8,10 +8,9 @@ export class RegexTitlePipe implements PipeTransform {
   transform(input: any, field:any, regex: any): any {
    
     let patt = new RegExp(regex);
-    console.log(field);
     let out = [];
     for (let i = 0; i < input.length; i++) {
-      if (patt.test(input[i][field])) {
+      if (patt.test(input[i][field].toLowerCase( ))) {
         out.push(input[i]);
       }
     }
