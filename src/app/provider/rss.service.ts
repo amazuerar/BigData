@@ -11,37 +11,37 @@ export class RssService {
   getRssWired() {
     return this.http.get('http://localhost:8888/RSS_WIRED')
       .map(res => res.json().rss.channel.item)
-      .toPromise();
+      .toPromise()
   }
 
   getRssLf() {
     return this.http.get('http://localhost:8888/RSS_LIFEH')
       .map(res => res.json().rss.channel.item)
-      .toPromise();
+      .toPromise()
   }
 
   getRssBbc() {
     return this.http.get('http://localhost:8888/RSS_BBC')
       .map(res => res.json().rss.channel.item)
-      .toPromise();
+      .toPromise()
   }
 
   getRssWiredXQFilter(title:any, description:any, category:any) {
     return this.http.get('http://localhost:8888/RSS_WIRED_XQ/'+title+"/"+description+"/"+category)
       .map(res => res.json().rss.channel.item)
-      .toPromise();
+      .toPromise()
   }
 
   getRssLfXQFilter(title:any, description:any, category:any) {
-    return this.http.get('http://localhost:8888/RSS_LIFEH_XQ'+title+"/"+description+"/"+category)
+    return this.http.get('http://localhost:8888/RSS_LIFEH_XQ/'+title+"/"+description+"/"+category)
       .map(res => res.json().rss.channel.item)
-      .toPromise();
+      .toPromise()
   }
 
   getRssBbcXQFilter(title:any, description:any, category:any) {
-    return this.http.get('http://localhost:8888/RSS_BBC_XQ'+title+"/"+description+"/"+category)
+    return this.http.get('http://localhost:8888/RSS_BBC_XQ/'+title+"/"+description+"/"+category)
       .map(res => res.json().rss.channel.item)
-      .toPromise();
+      .toPromise()
   }
 
 }

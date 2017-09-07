@@ -9,52 +9,137 @@ import { RegexTitlePipe } from './pipe/regex-title.pipe';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  profesores: any[] = [];
+  profesores = [];
 
-  rssWired: any[] = [];
-  rssLifeH: any[] = [];
-  rssBbc: any[] = [];
+  rssWired = [];
+  rssWiredLen;
 
-  rssWiredRegex : any[] = [];
-  rssLifeHRegex : any[] = [];
-  rssBbcRegex : any[] = [];
+  rssLifeH = [];
+  rssLifeHLen;
 
-  rssWiredXQ: any[] = [];
-  rssLifeHXQ: any[] = [];
-  rssBbcXQ: any[] = [];
+  rssBbc = [];
+  rssBbcLen;
+
+
+
+  rssWiredRegex = [];
+  rssWiredRegexLen;
+
+  rssLifeHRegex = [];
+  rssLifeHRegexLen;
+
+  rssBbcRegex = [];
+  rssBbcRegexLen;
+
+
+
+  rssWiredXQ = [];
+  rssWiredXQLen;
+
+  rssLifeHXQ = [];
+  rssLifeHXQLen;
+
+  rssBbcXQ = [];
+  rssBbcXQLen;
 
   title = "";
   description = "";
   category = "";
 
-  constructor(private pipeRegex:RegexTitlePipe, private backservice: BackService, private rss: RssService) {
+  constructor(private pipeRegex: RegexTitlePipe, private backservice: BackService, private rss: RssService) {
 
   }
 
 
   ngOnInit() {
     //this.backservice.getUsers().then(prof => this.profesores = prof);
-    this.rss.getRssWired().then(rss => {this.rssWired = rss; this.rssWiredRegex = rss; this.rssWiredXQ = rss});
-    this.rss.getRssBbc().then(rss => {this.rssBbc = rss; this.rssBbcRegex = rss; this.rssBbcXQ = rss});
-    this.rss.getRssLf().then(rss => {this.rssLifeH = rss; this.rssLifeHRegex = rss; this.rssLifeHXQ = rss});
+    this.rss.getRssWired().then(rss => { this.rssWired = rss; this.rssWiredLen = this.rssWired.length });
+    this.rss.getRssWired().then(rss => { this.rssWiredRegex = rss; this.rssWiredRegexLen = this.rssWiredRegex.length });
+    this.rss.getRssWired().then(rss => { this.rssWiredXQ = rss; this.rssWiredXQLen = this.rssWiredXQ.length });
+
+    this.rss.getRssBbc().then(rss => { this.rssBbc = rss; this.rssBbcLen = this.rssBbc.length });
+    this.rss.getRssBbc().then(rss => { this.rssBbcRegex = rss; this.rssBbcRegexLen = this.rssBbcRegex.length });
+    this.rss.getRssBbc().then(rss => { this.rssBbcXQ = rss; this.rssBbcXQLen = this.rssBbcXQ.length });
+
+    this.rss.getRssLf().then(rss => { this.rssLifeH = rss; this.rssLifeHLen = this.rssLifeH.length });
+    this.rss.getRssLf().then(rss => { this.rssLifeHRegex = rss; this.rssLifeHRegexLen = this.rssLifeHRegex.length });
+    this.rss.getRssLf().then(rss => { this.rssLifeHXQ = rss; this.rssLifeHXQLen = this.rssLifeHXQ.length });
+
+
   }
 
   filter() {
+
     let wired = this.rssWired;
     let lifeh = this.rssLifeH;
     let bbc = this.rssBbc;
 
-    // REGEX
-    this.rssWiredRegex = this.pipeRegex.transform(this.pipeRegex.transform(wired, "description",this.description.toLowerCase( )), "title", this.title.toLowerCase( ));
-    this.rssLifeHRegex = this.pipeRegex.transform(this.pipeRegex.transform(lifeh, "description",this.description.toLowerCase( )), "title", this.title.toLowerCase( ));
-    this.rssBbcRegex = this.pipeRegex.transform(this.pipeRegex.transform(bbc, "description",this.description.toLowerCase( )), "title", this.title.toLowerCase( ));
-    //console.log(this.rssWiredRegex);
+    if (this.title.trim() === "" && this.description.trim() === "" && this.category.trim() === "") {
+      alert("Debe escribir algún parámetro de búsqueda");
+      this.clean();
+    }
+    else {
 
-    // XQuery (Elementree)
-    this.rss.getRssWiredXQFilter(this.title, this.description, "").then(newRss =>  {this.rssWiredXQ = newRss; console.log(this.rssWiredXQ)});
-   // this.rss.getRssLfXQFilter(this.title, this.description, "").then(newRss => this.rssLifeHXQ = newRss);
-    //this.rss.getRssBbcXQFilter(this.title, this.description, "").then(newRss => this.rssBbcXQ = newRss);
+      // REGEX
+      this.rssWiredRegex = this.pipeRegex.transform(this.pipeRegex.transform(wired, "description", this.description.toLowerCase()), "title", this.title.toLowerCase());
+      this.rssLifeHRegex = this.pipeRegex.transform(this.pipeRegex.transform(lifeh, "description", this.description.toLowerCase()), "title", this.title.toLowerCase());
+      this.rssBbcRegex = this.pipeRegex.transform(this.pipeRegex.transform(bbc, "description", this.description.toLowerCase()), "title", this.title.toLowerCase());
+
+      this.rssWiredRegexLen = this.rssWiredRegex.length
+      this.rssLifeHRegexLen = this.rssLifeHRegex.length
+      this.rssBbcRegexLen = this.rssBbcRegex.length
+
+      // XQuery (Elementree)
+      this.rss.getRssWiredXQFilter(this.title, this.description, "")
+        .then(newRss => {
+          if (newRss.length === undefined) {
+            this.rssWiredXQ = [];
+            this.rssWiredXQ.push(newRss);
+          }
+          else {
+            this.rssWiredXQ = newRss;
+          }
+          this.rssWiredXQLen = this.rssWiredXQ.length;
+
+        })
+        .then(undefined, (error) => { this.rssWiredXQ.length = 0; this.rssWiredXQLen = this.rssWiredXQ.length; });
+
+      this.rss.getRssLfXQFilter(this.title, this.description, "")
+        .then(newRss => {
+          if (newRss.length === undefined) {
+            this.rssLifeHXQ = [];
+            this.rssLifeHXQ.push(newRss);
+          }
+          else {
+            this.rssLifeHXQ = newRss;
+          }
+          this.rssLifeHXQLen = this.rssLifeHXQ.length;
+        })
+        .then(undefined, (error) => { this.rssLifeHXQ.length = 0; this.rssLifeHXQLen = this.rssLifeHXQ.length; });
+
+      this.rss.getRssBbcXQFilter(this.title, this.description, "")
+        .then(newRss => {
+          if (newRss.length === undefined) {
+            this.rssBbcXQ = [];
+            this.rssBbcXQ.push(newRss);
+          }
+          else {
+            this.rssBbcXQ = newRss;
+          }
+          this.rssBbcXQLen = this.rssBbcXQ.length;
+
+        })
+        .then(undefined, (error) => { this.rssBbcXQ.length = 0; this.rssBbcXQLen = this.rssBbcXQ.length });
+
+
+
+
+    }
+
+
   }
+
+
 
   clean() {
     this.title = "";

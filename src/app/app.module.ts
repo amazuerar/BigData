@@ -8,6 +8,7 @@ import { RegexTitlePipe } from './pipe/regex-title.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
