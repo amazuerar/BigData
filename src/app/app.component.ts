@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BackService } from './provider/back.service';
 import { RssService } from './provider/rss.service';
 import { RegexTitlePipe } from './pipe/regex-title.pipe';
+import { RegexCategoryPipe } from './pipe/regex-category.pipe';
 
 @Component({
   selector: 'app-root',
@@ -46,7 +47,7 @@ export class AppComponent {
   description = "";
   category = "";
 
-  constructor(private pipeRegex: RegexTitlePipe, private backservice: BackService, private rss: RssService) {
+  constructor(private pipeRegexCat: RegexCategoryPipe, private pipeRegex: RegexTitlePipe, private backservice: BackService, private rss: RssService) {
 
   }
 
@@ -81,16 +82,16 @@ export class AppComponent {
     else {
 
       // REGEX
-      this.rssWiredRegex = this.pipeRegex.transform(this.pipeRegex.transform(wired, "description", this.description.toLowerCase()), "title", this.title.toLowerCase());
-      this.rssLifeHRegex = this.pipeRegex.transform(this.pipeRegex.transform(lifeh, "description", this.description.toLowerCase()), "title", this.title.toLowerCase());
-      this.rssBbcRegex = this.pipeRegex.transform(this.pipeRegex.transform(bbc, "description", this.description.toLowerCase()), "title", this.title.toLowerCase());
+      this.rssWiredRegex = this.pipeRegexCat.transform(this.pipeRegex.transform(this.pipeRegex.transform(wired, "description", this.description.toLowerCase()), "title", this.title.toLowerCase()), "category", this.category);
+      this.rssLifeHRegex = this.pipeRegexCat.transform(this.pipeRegex.transform(this.pipeRegex.transform(lifeh, "description", this.description.toLowerCase()), "title", this.title.toLowerCase()), "category", this.category);
+      this.rssBbcRegex = this.pipeRegexCat.transform(this.pipeRegex.transform(this.pipeRegex.transform(bbc, "description", this.description.toLowerCase()), "title", this.title.toLowerCase()), "category", this.category);
 
       this.rssWiredRegexLen = this.rssWiredRegex.length
       this.rssLifeHRegexLen = this.rssLifeHRegex.length
       this.rssBbcRegexLen = this.rssBbcRegex.length
 
       // XQuery (Elementree)
-      this.rss.getRssWiredXQFilter(this.title, this.description, "")
+      this.rss.getRssWiredXQFilter(this.title, this.description, this.category)
         .then(newRss => {
           if (newRss.length === undefined) {
             this.rssWiredXQ = [];
@@ -104,7 +105,7 @@ export class AppComponent {
         })
         .then(undefined, (error) => { this.rssWiredXQ.length = 0; this.rssWiredXQLen = this.rssWiredXQ.length; });
 
-      this.rss.getRssLfXQFilter(this.title, this.description, "")
+      this.rss.getRssLfXQFilter(this.title, this.description, this.category)
         .then(newRss => {
           if (newRss.length === undefined) {
             this.rssLifeHXQ = [];
@@ -117,7 +118,7 @@ export class AppComponent {
         })
         .then(undefined, (error) => { this.rssLifeHXQ.length = 0; this.rssLifeHXQLen = this.rssLifeHXQ.length; });
 
-      this.rss.getRssBbcXQFilter(this.title, this.description, "")
+      this.rss.getRssBbcXQFilter(this.title, this.description,  this.category )
         .then(newRss => {
           if (newRss.length === undefined) {
             this.rssBbcXQ = [];

@@ -5,6 +5,7 @@ import { RssService} from './provider/rss.service';
 import { AppComponent } from './app.component';
 import { HttpModule } from '@angular/http';
 import { RegexTitlePipe } from './pipe/regex-title.pipe';
+import { RegexCategoryPipe } from './pipe/regex-category.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
@@ -13,13 +14,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   declarations: [
     AppComponent,
     RegexTitlePipe,
+    RegexCategoryPipe
   ],
   imports: [
     BrowserModule,
     HttpModule,
     FormsModule      
   ],
-  providers: [BackService, RssService, RegexTitlePipe],
+  providers: [BackService, RssService, RegexTitlePipe, RegexCategoryPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
