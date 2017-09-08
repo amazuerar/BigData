@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { BackService } from '../provider/back.service';
 import { RssService } from '../provider/rss.service';
 import { RegexTitlePipe } from '../pipe/regex-title.pipe';
 import { RegexCategoryPipe } from '../pipe/regex-category.pipe';
@@ -11,7 +10,6 @@ import { RegexCategoryPipe } from '../pipe/regex-category.pipe';
 })
 export class RssComponent implements OnInit {
 
-  profesores = [];
 
   rssWired = [];
   rssWiredLen;
@@ -47,10 +45,9 @@ export class RssComponent implements OnInit {
   title = "";
   description = "";
   category = "";
-  constructor(private pipeRegexCat: RegexCategoryPipe, private pipeRegex: RegexTitlePipe, private backservice: BackService, private rss: RssService) { }
+  constructor(private pipeRegexCat: RegexCategoryPipe, private pipeRegex: RegexTitlePipe, private rss: RssService) { }
 
   ngOnInit() {
-    //this.backservice.getUsers().then(prof => this.profesores = prof);
     this.rss.getRssWired().then(rss => { this.rssWired = rss; this.rssWiredLen = this.rssWired.length });
     this.rss.getRssWired().then(rss => { this.rssWiredRegex = rss; this.rssWiredRegexLen = this.rssWiredRegex.length });
     this.rss.getRssWired().then(rss => { this.rssWiredXQ = rss; this.rssWiredXQLen = this.rssWiredXQ.length });

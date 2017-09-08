@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { BackService } from '../provider/back.service';
+
 
 @Component({
   selector: 'app-profesores',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfesoresComponent implements OnInit {
 
-  constructor() { }
+  profesores = [];
+
+  constructor( private backservice: BackService) { }
 
   ngOnInit() {
+    this.backservice.getUsers().then(prof => this.profesores = prof);
   }
 
 }

@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfesoresComponent } from './profesores/profesores.component';
 import { RssComponent } from './rss/rss.component';
 import { RouterModule, Routes } from '@angular/router';
+import {LocationStrategy, HashLocationStrategy} from '@angular/common';
 
 const appRoutes: Routes = [
   { path: 'Universidad', component: ProfesoresComponent },
@@ -31,7 +32,7 @@ const appRoutes: Routes = [
     HttpModule,
     FormsModule
   ],
-  providers: [BackService, RssService, RegexTitlePipe, RegexCategoryPipe],
+  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, BackService, RssService, RegexTitlePipe, RegexCategoryPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -5,3 +5,12 @@
     <span class="text-muted">Grupo 10: Diego - Lucy - Alejandro</span>
   </div>
 </div>
+
+<ul>
+  <div *ngFor="let prof of profesores">
+    <h2>{{prof.name}}</h2>
+    <span><b>Cargo:</b> {{prof.cargo}}</span>
+    <p><b>Intereses:</b> {{prof.intereses}}</p>
+    <hr/>
+  </div>
+</ul>
