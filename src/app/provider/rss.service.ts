@@ -6,7 +6,8 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class RssService {
 
-  address = "172.24.100.104";
+  //address = "172.24.100.104";
+  address = "localhost";
   port = "8080";
   
   constructor(private http: Http) { }
@@ -36,7 +37,7 @@ export class RssService {
   }
 
   getRssLfXQFilter(title:any, description:any, category:any) {
-    return this.http.get('http://'+this.address+':'+this.port+'RSS_LIFEH_XQ/'+title+"/"+description+"/"+category)
+    return this.http.get('http://'+this.address+':'+this.port+'/RSS_LIFEH_XQ/'+title+"/"+description+"/"+category)
       .map(res => res.json().rss.channel.item)
       .toPromise()
   }
@@ -46,5 +47,7 @@ export class RssService {
       .map(res => res.json().rss.channel.item)
       .toPromise()
   }
+
+  
 
 }

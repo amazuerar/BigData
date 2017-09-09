@@ -10,7 +10,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProfesoresComponent } from './profesores/profesores.component';
 import { RssComponent } from './rss/rss.component';
 import { RouterModule, Routes } from '@angular/router';
-import {LocationStrategy, HashLocationStrategy} from '@angular/common';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { DataTableModule } from 'ng2-flex-table';
+import { FilterPipe, OrderPipe } from './pipe/filter-table.pipe';
 
 const appRoutes: Routes = [
   { path: 'Universidad', component: ProfesoresComponent },
@@ -20,6 +22,8 @@ const appRoutes: Routes = [
 
 @NgModule({
   declarations: [
+    FilterPipe,
+    OrderPipe,
     AppComponent,
     RegexTitlePipe,
     RegexCategoryPipe,
@@ -27,12 +31,13 @@ const appRoutes: Routes = [
     RssComponent
   ],
   imports: [
+    DataTableModule,
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     HttpModule,
     FormsModule
   ],
-  providers: [{provide: LocationStrategy, useClass: HashLocationStrategy}, BackService, RssService, RegexTitlePipe, RegexCategoryPipe],
+  providers: [{ provide: LocationStrategy, useClass: HashLocationStrategy }, BackService, RssService, FilterPipe, OrderPipe, RegexTitlePipe, RegexCategoryPipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

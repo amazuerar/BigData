@@ -6,12 +6,24 @@ import 'rxjs/add/operator/toPromise';
 @Injectable()
 export class BackService {
 
+  //address = "172.24.100.104";
+  address = "localhost";
+  port = "8080";
+
   constructor(private http: Http) { }
 
-  getUsers() {
-    return this.http.get('/assets/profesores.json')
+ 
+
+  getNoticiasUniandes() {
+    return this.http.get('http://' + this.address + ':' + this.port + '/NOTICIAS')
       .map(res => res.json())
-      .toPromise();
+      .toPromise()
+  }
+
+   getPersonasUniandes() {
+    return this.http.get('http://' + this.address + ':' + this.port + '/PERSONAS')
+      .map(res => res.json())
+      .toPromise()
   }
 
 }
