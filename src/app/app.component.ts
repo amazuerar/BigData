@@ -1,6 +1,11 @@
 import { Component } from '@angular/core';
 
 
+/**
+ * Clase principal del componente inicial
+ * @export
+ * @class AppComponent
+ */
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -9,6 +14,10 @@ import { Component } from '@angular/core';
 export class AppComponent {
   
 
+  /**
+   * Crea una instacion del componente AppComponent.
+   * @memberof AppComponent
+   */
   constructor() {
 
   }

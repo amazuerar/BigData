@@ -3,6 +3,12 @@ import { RssService } from '../provider/rss.service';
 import { RegexTitlePipe } from '../pipe/regex-title.pipe';
 import { RegexCategoryPipe } from '../pipe/regex-category.pipe';
 
+/**
+ * Componente que contiene todo lo relacionado a la visualización y procesamiento del modulo de suscripción a RSS
+ * @export
+ * @class RssComponent
+ * @implements {OnInit}
+ */
 @Component({
   selector: 'app-rss',
   templateUrl: './rss.component.html',
@@ -11,42 +17,148 @@ import { RegexCategoryPipe } from '../pipe/regex-category.pipe';
 export class RssComponent implements OnInit {
 
 
+  /**
+   * Atributo para definir el arreglo de RSS de Wired
+   * @memberof RssComponent
+   */
   rssWired = [];
+
+  /**
+   * Atributo para definir la longirud del arreglo de RSS de 
+   * @memberof RssComponent
+   */
   rssWiredLen;
 
+  /**
+   * Atributo para definir el arreglo de RSS de lifehacker
+   * @memberof RssComponent
+   */
   rssLifeH = [];
+
+  /**
+   * Atributo para definir la longirud del arreglo de RSS de lifehacker
+   * @memberof RssComponent
+   */
   rssLifeHLen;
 
+  /**
+   * Atributo para definir el arreglo de RSS de BBC
+   * @memberof RssComponent
+   */
   rssBbc = [];
+
+  /**
+   * Atributo para definir la longitud del arreglo de RSS de lifehacker
+   * @memberof RssComponent
+   */
   rssBbcLen;
 
 
-
+  /**
+    * Atributo para definir el arreglo de RSS de Wired con Regex
+    * @memberof RssComponent
+    */
   rssWiredRegex = [];
+
+  /**
+    * Atributo para definir la longitud del arreglo de RSS de Wired con Regex
+    * @memberof RssComponent
+    */
   rssWiredRegexLen;
 
+  /**
+   * Atributo para definir el arreglo de RSS de lifehacker con Regex
+   * @memberof RssComponent
+   */
   rssLifeHRegex = [];
+
+  /**
+   * Atributo para definir la longitud del arreglo de RSS de lifehacker con Regex
+   * @memberof RssComponent
+   */
   rssLifeHRegexLen;
 
+  /**
+   * Atributo para definir el arreglo de RSS de BBC con Regex
+   * @memberof RssComponent
+   */
   rssBbcRegex = [];
+
+  /**
+   * Atributo para definir la longirud del arreglo de RSS de BBC con Regex
+   * @memberof RssComponent
+   */
   rssBbcRegexLen;
 
 
-
+  /**
+   * Atributo para definir el arreglo de RSS de Wired con Xquery
+   * @memberof RssComponent
+   */
   rssWiredXQ = [];
+
+  /**
+   * Atributo para definir la longirud del arreglo de RSS de Wired con Xquery
+   * @memberof RssComponent
+   */
   rssWiredXQLen;
 
+  /**
+   * Atributo para definir el arreglo de RSS de Lifehacker con Xquery
+   * @memberof RssComponent
+   */
   rssLifeHXQ = [];
+
+  /**
+   * Atributo para definir la longirud del arreglo de RSS de lifehacker con Xquery
+   * @memberof RssComponent
+   */
   rssLifeHXQLen;
 
+  /**
+   * Atributo para definir el arreglo de RSS de WIred con Xquery
+   * @memberof RssComponent
+   */
   rssBbcXQ = [];
+
+  /**
+   * Atributo para definir la longirud del arreglo de RSS de BBC con Xquery
+   * @memberof RssComponent
+   */
   rssBbcXQLen;
 
+  /**
+   * Parametro para contener el atributo a ser filtrado en el titulo
+   * @memberof RssComponent
+   */
   title = "";
+
+  /**
+   * Parametro para contener el atributo a ser filtrado en la descripcion
+   * @memberof RssComponent
+   */
   description = "";
+
+  /**
+   * Parametro para contener el atributo a ser filtrado en la categoria
+   * @memberof RssComponent
+   */
   category = "";
+
+  /**
+   * Crea una instancia del componente RssComponent.
+   * @param {RegexCategoryPipe} pipeRegexCat la Pipe para aplicar expresiones regulares en la categorias
+   * @param {RegexTitlePipe} pipeRegex la Pipe para aplicar expresiones regulares en titulo y descripcion
+   * @param {RssService} rss el servicio que trae los metodos para obtener la informacion desde el servidor
+   * @memberof RssComponent
+   */
   constructor(private pipeRegexCat: RegexCategoryPipe, private pipeRegex: RegexTitlePipe, private rss: RssService) { }
 
+  /**
+   * Metodo que se ejecuta al inicializar el componente
+   * Se encarga de cargar la información inicial y poblar los arreglos iniciales con los RSS
+   * @memberof RssComponent
+   */
   ngOnInit() {
     this.rss.getRssWired().then(rss => { this.rssWired = rss; this.rssWiredLen = this.rssWired.length });
     this.rss.getRssWired().then(rss => { this.rssWiredRegex = rss; this.rssWiredRegexLen = this.rssWiredRegex.length });
@@ -63,6 +175,12 @@ export class RssComponent implements OnInit {
 
   }
 
+  /**
+   * Metodo que se encarga de aplicar los filtros ya sea por RegExp o Xquery, llamado a las respecivas acciones
+   * Si el usuario no diligencio los componentes para filtrar aparecera un mensaje advirtiendo la situacion 
+   * y se recarga nuevamente los arreglos iniciales
+   * @memberof RssComponent
+   */
   filter() {
 
     let wired = this.rssWired;
@@ -134,14 +252,15 @@ export class RssComponent implements OnInit {
 
   }
 
-
-
+  /**
+   * Metodo encargado de limpiar los filtros y poblar los arreglos iniciales con la informacion original de los RSS sin filtrar
+   * @memberof RssComponent
+   */
   clean() {
     this.title = "";
     this.description = "";
     this.category = "";
     this.ngOnInit();
-
   }
 
 
